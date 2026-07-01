@@ -4,12 +4,22 @@ import './App.scss';
 export const App = () => {
   const [count, setCount] = useState(0);
 
-  const addOne = () => {
-    setCount(currentCount => currentCount + 1);
+  const addOne = (isSimpleClick = false) => {
+    setCount(currentCount => {
+      const nextCount = currentCount + 1;
+
+      if (isSimpleClick) {
+        return nextCount;
+      }
+
+      return nextCount % 5 === 0 ? nextCount + 100 : nextCount;
+    });
   };
 
-  const add100 = () => {
-    setCount(currentCount => currentCount + 100);
+  const add100 = (isSimpleClick = false) => {
+    if (isSimpleClick) {
+      setCount(currentCount => currentCount + 100);
+    }
   };
 
   // DON'T change the code below
@@ -25,11 +35,19 @@ export const App = () => {
     <div className="App">
       <h1 className="App__title">{`Count: ${count}`}</h1>
 
-      <button type="button" className="App__add-one" onClick={addOne}>
+      <button
+        type="button"
+        className="App__add-one"
+        onClick={() => addOne(true)}
+      >
         Add 1
       </button>
 
-      <button type="button" className="App__add-100" onClick={add100}>
+      <button
+        type="button"
+        className="App__add-100"
+        onClick={() => add100(true)}
+      >
         Add 100
       </button>
 
